@@ -1,4 +1,4 @@
-import csv
+﻿import csv
 import os
 import re
 import shutil
@@ -13,8 +13,8 @@ DB_DIR = "./chroma_db"
 COLLECTIONS = {"kaoyan": "kaoyan", "kaogong": "kaogong"}
 
 DATA_SOURCES = [
-    {"path": "kaoyan_data.csv", "data_type": "kaoyan"},
-    {"path": "kaogong_data.csv", "data_type": "kaogong"},
+    {"path": "data/kaoyan_data.csv", "data_type": "kaoyan"},
+    {"path": "data/kaogong_data.csv", "data_type": "kaogong"},
 ]
 
 # ---- 全局收集：静默错误的入口 ----

@@ -41,8 +41,8 @@ except Exception:
     pass
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-KY_CSV = os.path.join(HERE, "kaoyan_data.csv")
-KG_CSV = os.path.join(HERE, "kaogong_data.csv")
+KY_CSV = os.path.join(HERE, "data", "kaoyan_data.csv")
+KG_CSV = os.path.join(HERE, "data", "kaogong_data.csv")
 
 # ---------------------------------------------------------------------------
 # 本机配置
@@ -999,7 +999,9 @@ def main():
           "|---|---|---|---|---|---|---|---|"] + \
          ["| %s | %s | %d | %s | %s | %s | %s | %s |" % row for row in summary]
 
-    out_path = os.path.join(HERE, "eval_result_%s.md" % args.tag)
+    out_dir = os.path.join(HERE, "eval", "results")
+    os.makedirs(out_dir, exist_ok=True)
+    out_path = os.path.join(out_dir, "eval_result_%s.md" % args.tag)
     with open(out_path, "w", encoding="utf-8") as f:
         f.write("\n".join(md) + "\n")
     print("\n已写出：%s" % out_path)

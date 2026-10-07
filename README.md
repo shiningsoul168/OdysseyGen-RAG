@@ -87,14 +87,24 @@ uv run python rag_eval.py --audit          # metadata 取值分布审计
 - 岗位数据：四川省及各市州**政府公开**的事业单位公开招聘岗位一览表（原始 `.xlsx` 一并保留，可溯源）
 - **本仓库不包含任何招聘平台的 JD 原文或截图**
 
-## 目录
+## 目录结构
 
-| 文件 | 作用 |
-|---|---|
-| `rag_intent.py` | 意图解析器（13 维度扫描 + 别名归一化 + 派生抑制） |
-| `rag_core.py` | 检索入口（选库白名单 + 句柄缓存 + 执行期拒答 + count 分支） |
-| `main.py` | FastAPI 服务（启动预热 + 响应 schema） |
-| `csv_to_docs.py` | 数据重建（结构化 content + metadata → 双 collection） |
-| `export_domains.py` | 值域导出（机关 / 单位 / 变体 / 城市别名 / 专业 / 学院） |
-| `rag_eval.py` | 评测脚本（`--check` / `--parse-check` / `--parse-freeze` / `--smoke` / `--audit`） |
-| `eval_result_*.md` | 三阶段检索评测留档 |
+```
+├── main.py                 FastAPI 服务（启动预热 + 响应 schema）
+├── rag_core.py             检索入口（选库白名单 + 句柄缓存 + 执行期拒答 + count 分支）
+├── rag_intent.py           意图解析器（13 维度扫描 + 别名归一化 + 派生抑制）
+├── csv_to_docs.py          数据重建（结构化 content + metadata → 双 collection）
+├── export_domains.py       值域导出（机关 / 单位 / 变体 / 城市别名 / 专业 / 学院）
+├── rag_eval.py             评测脚本（--check / --parse-check / --parse-freeze / --smoke / --audit）
+├── rag_eval_config.py      评测本机配置（collection 名、阈值）
+├── value_domains.json      值域文件（rag_intent 启动时读取）
+├── data/
+│   ├── kaoyan_data.csv     考研数据（69 条）
+│   ├── kaogong_data.csv    事业单位岗位数据（5649 条）
+│   └── raw/                原始来源表（政府公开 .xlsx，可溯源）
+├── eval/
+│   └── results/            三阶段检索评测留档（v0-baseline / v1-cosine / v2-filtered）
+└── scripts/
+    ├── bench_timing.py     冷启动 vs 预热延迟实测（预热数据的复现脚本）
+    └── probe_score.py      检索距离分布探针
+```

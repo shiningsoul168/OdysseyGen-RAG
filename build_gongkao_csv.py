@@ -1,4 +1,4 @@
-# build_gongkao_csv.py
+﻿# build_gongkao_csv.py
 import re
 from pathlib import Path
 
@@ -6,9 +6,9 @@ import pandas as pd
 
 BASE = Path(r"F:\OdysseyGen-RAG")
 
-FILE_CITY = BASE / "2026年上半年市（州）事业单位公开招聘工作人员岗位和条件要求一览表.xlsx"
-FILE_PROV = BASE / "2026年上半年省属事业单位公开招聘工作人员岗位和条件要求一览表.xlsx"
-FILE_TEACHER = BASE / "2026年上半年全省公开招聘中小学教师（省属）岗位和条件要求一览表.xlsx"
+FILE_CITY = BASE / "data" / "raw" / "2026年上半年市（州）事业单位公开招聘工作人员岗位和条件要求一览表.xlsx"
+FILE_PROV = BASE / "data" / "raw" / "2026年上半年省属事业单位公开招聘工作人员岗位和条件要求一览表.xlsx"
+FILE_TEACHER = BASE / "data" / "raw" / "2026年上半年全省公开招聘中小学教师（省属）岗位和条件要求一览表.xlsx"
 
 CN_NUM = {"一": 1, "两": 2, "二": 2, "三": 3, "四": 4,
           "五": 5, "六": 6, "七": 7, "八": 8, "九": 9, "十": 10}
@@ -143,7 +143,7 @@ def main():
     df_teacher_std = to_standard(df_teacher, "省属中小学教师", FILE_TEACHER.name, "主管部门")
 
     all_df = pd.concat([df_city_std, df_prov_std, df_teacher_std], ignore_index=True)
-    out_path = BASE / "kaogong_data.csv"
+    out_path = BASE / "data" / "kaogong_data.csv"
     all_df.to_csv(out_path, index=False, encoding="utf-8-sig")
 
     print(f"生成 {len(all_df)} 条考公数据 -> {out_path}")
